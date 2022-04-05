@@ -3,7 +3,7 @@
     <ul>
         <div *ngFor='let goal of goals;let i = index'>
             <li (click)='toggleDetails(i)'>{{goal.name}}</li>
-            <app-goal-detail *ngIf='goal.showDescription' [goal]='goal'></app-goal-detail>
+            <app-goal-detail *ngIf='goal.showDescription' [goal]='goal' (isComplete) = 'completeGoal($event,i)'></app-goal-detail>
         </div>
         <br>
     </ul>
