@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Goal } from './goal'
+
 
 @Component({
   selector: 'app-root',
@@ -6,10 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  goals:string[];
-
-  constructor(){
-    this.goals = ['Watch Finding Nemo', 'Eats Food', 'Order Fries', 'Play a game']
-  }
-  
+  goals:Goal[] = [
+    {id:1, name:'Watch finding Nemo'},
+    {id:2, name:'Teach a class'},
+    {id:3, name:'Make some food'},
+    {id:4, name:'Study Angular'}
+  ];
 }
