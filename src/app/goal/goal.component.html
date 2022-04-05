@@ -2,7 +2,7 @@
     <h1>My goals</h1>
     <ul>
         <div *ngFor='let goal of goals;let i = index'>
-            <li appStrikethrough>{{goal.name}}</li> <button (click)='toggleDetails(i)' class="btn btn-primary">Toggle</button>
+            <li appStrikethrough>{{goal.name}} due on {{goal.completeDate|date|uppercase}}</li> <button (click)='toggleDetails(i)' class="btn btn-primary">Toggle</button>
             <app-goal-detail *ngIf='goal.showDescription' [goal]='goal' (isComplete) = 'completeGoal($event,i)'></app-goal-detail>
         </div>
         <br>
