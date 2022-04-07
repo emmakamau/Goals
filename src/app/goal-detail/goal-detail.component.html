@@ -1,4 +1,3 @@
 <p>{{goal.description}}</p>
-<p>This goal will be complete in {{goal.completeDate|dateCount}} days
-    <button (click)= 'goalComplete(true)'>X</button>
-</p>
+<p>This goal will be complete in {{goal.completeDate|dateCount}} days</p>
+<button (click)= 'goalDelete(true)' class="btn btn-outline-danger">Delete Goal</button>
