@@ -9,14 +9,13 @@
                     <h4 id={{i}} appStrikethrough>{{goal.name}} due on {{goal.completeDate|date|uppercase}}</h4>
                     <button (click)='toggleDetails(i)' class="btn btn-primary">Toggle Details</button>
                 </div>
-
                 <div *ngIf='goal.showDescription'>
                     <app-goal-detail [goal]='goal' (isComplete)='deleteGoal($event,i)'></app-goal-detail>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <app-goal-form></app-goal-form>
+            <app-goal-form (addGoal)="addNewGoal($event)"></app-goal-form>
         </div>
     </div>
     <p *ngIf='goals.length > 5'>You have too many goals</p>
