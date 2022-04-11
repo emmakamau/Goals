@@ -4,6 +4,7 @@ import { Goal } from '../goal'; //Import goal class
 import { GoalService } from '../goal-service/goal.service'; //Imports/register the goal service
 import { AlertService } from '../alert-service/alert.service'; //Imports/register the alert service
 import { Quote } from '../quote-class/quote'; //Import quote class
+import { QuoteRequestService } from '../quote-http/quote-request.service';
 
 @Component({
   selector: 'app-goal',
@@ -22,7 +23,7 @@ export class GoalComponent implements OnInit {
 
   b.) Instantiate and make the alert service available
   */
-  constructor(goalService:GoalService, alertService:AlertService, private http:HttpClient) {
+  constructor(goalService:GoalService, alertService:AlertService, private quoteService:QuoteRequestService) {
     this.goals = goalService.getGoals()
     this.alertService = alertService;
   }
@@ -57,22 +58,8 @@ export class GoalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Tell Angular the kind of response we will receive from the API
-    interface ApiResponse{
-      //Expectations from the API and their types
-      author:string;
-      quote:string;
-    }
-    //Makes a request to the API
-    this.http.get<ApiResponse>("http://quotes.stormconsultancy.co.uk/random.json").subscribe(data=>{
-      // Succesful API request
-      this.quote = new Quote(data.author, data.quote)}, //Instantiate quote
-      //Predefined data incase the no response is received from the API - Error handling in play
-      err=>{
-        this.quote = new Quote("Winston Churchill","Never never give up!")
-        console.log("An error occurred")
-    })
-    
+    this.quoteService.quoteRequest()
+    this.quote = this.quoteService.quote
   }
 
 }
