@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Goal } from '../goal'
+import { Goal } from '../goal';
+import { GoalService } from '../goal-service/goal.service'; //Imports/register the goal service
+import { AlertService } from '../alert-service/alert.service'; //Imports/register the alert service
 
 @Component({
   selector: 'app-goal',
@@ -7,14 +9,20 @@ import { Goal } from '../goal'
   styleUrls: ['./goal.component.css']
 })
 export class GoalComponent implements OnInit {
-  goals:Goal[] = [
-    new Goal(1, 'Watch finding Nemo', 'Find an online version and watch merlin find his son',new Date(2020,3,14)),
-    new Goal(2,'Buy Cookies','I have to buy cookies for the parrot',new Date(2019,6,9)),
-    new Goal(3,'Get new Phone Case','Diana has her birthday coming up soon',new Date(2022,1,12)),
-    new Goal(4,'Get Dog Food','Pupper likes expensive snacks',new Date(2019,0,18)),
-    new Goal(5,'Solve math homework','Damn Math',new Date(2019,2,14)),
-    new Goal(6,'Plot my world domination plan','Cause I am an evil overlord',new Date(2030,3,14)),
-  ];
+
+  goals:Goal[]; //Create a property goals and assign a type - array
+  alertService:AlertService; //Property alertService and type is AlertService
+
+  /*
+  a.) Constructor is used to consume the GoalService and get 
+  goals from the Goals array in our makeshift database
+
+  b.) Instantiate and make the alert service available
+  */
+  constructor(goalService:GoalService, alertService:AlertService) {
+    this.goals = goalService.getGoals()
+    this.alertService = alertService;
+  }
 
   addNewGoal(goal){
     let goalLength = this.goals.length;
@@ -39,11 +47,11 @@ export class GoalComponent implements OnInit {
 
       if (toDelete){
         this.goals.splice(index,1)
+        //alertMe() method from the service to display the message inside after the user has confirmed to delete a goal.
+        this.alertService.alertMe("The goal has been deleted")
       }
     }
   }
-
-  constructor() { }
 
   ngOnInit(): void {
   }
