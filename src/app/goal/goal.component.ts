@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Goal } from '../goal';
+import { HttpClient } from '@angular/common/http';
+import { Goal } from '../goal'; //Import goal class  
 import { GoalService } from '../goal-service/goal.service'; //Imports/register the goal service
 import { AlertService } from '../alert-service/alert.service'; //Imports/register the alert service
+import { Quote } from '../quote-class/quote'; //Import quote class
 
 @Component({
   selector: 'app-goal',
@@ -12,6 +14,7 @@ export class GoalComponent implements OnInit {
 
   goals:Goal[]; //Create a property goals and assign a type - array
   alertService:AlertService; //Property alertService and type is AlertService
+  quote:Quote; //Property quote type Quote(from our class)
 
   /*
   a.) Constructor is used to consume the GoalService and get 
@@ -19,7 +22,7 @@ export class GoalComponent implements OnInit {
 
   b.) Instantiate and make the alert service available
   */
-  constructor(goalService:GoalService, alertService:AlertService) {
+  constructor(goalService:GoalService, alertService:AlertService, private http:HttpClient) {
     this.goals = goalService.getGoals()
     this.alertService = alertService;
   }
@@ -54,6 +57,18 @@ export class GoalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //Tell Angular the kind of response we will receive from the API
+    interface ApiResponse{
+      //Expectations from the API and their types
+      author:string;
+      quote:string;
+    }
+    //Makes a request to the API
+    this.http.get<ApiResponse>("http://quotes.stormconsultancy.co.uk/random.json").subscribe(data=>{
+      // Succesful API request
+      this.quote = new Quote(data.author, data.quote) //Instantiate quote
+    })
+
   }
 
 }

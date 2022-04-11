@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; //Import HttpClient
 
 import { AppComponent } from './app.component';
 import { GoalComponent } from './goal/goal.component';
@@ -20,7 +21,8 @@ import { GoalFormComponent } from './goal-form/goal-form.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

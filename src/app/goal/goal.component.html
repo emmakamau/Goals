@@ -19,4 +19,12 @@
         </div>
     </div>
     <p *ngIf='goals.length > 5'>You have too many goals</p>
+
+    <!-- Displays the quote we got from the API -->
+    <div class="row">
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">{{quote.quote}}</p><br>
+            <footer class="blockquote-footer"><cite>{{quote.author}}</cite></footer>
+        </blockquote>
+    </div>
 </div>
