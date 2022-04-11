@@ -66,9 +66,13 @@ export class GoalComponent implements OnInit {
     //Makes a request to the API
     this.http.get<ApiResponse>("http://quotes.stormconsultancy.co.uk/random.json").subscribe(data=>{
       // Succesful API request
-      this.quote = new Quote(data.author, data.quote) //Instantiate quote
+      this.quote = new Quote(data.author, data.quote)}, //Instantiate quote
+      //Predefined data incase the no response is received from the API - Error handling in play
+      err=>{
+        this.quote = new Quote("Winston Churchill","Never never give up!")
+        console.log("An error occurred")
     })
-
+    
   }
 
 }
